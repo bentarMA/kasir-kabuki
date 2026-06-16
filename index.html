@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KASIR KABUKI — KABUKIRO JAPANESE YATAI</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- LOGIN PAGE -->
+    <div id="login-page" class="page active">
+        <div class="login-bg-grid"></div>
+        <div class="login-glow"></div>
+
+        <div class="login-wrapper">
+            <div class="login-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-store-alt"></i>
+                </div>
+                <h1>KASIR<span>KABUKI</span></h1>
+                <p>Point of Sale System</p>
+            </div>
+
+            <div class="login-card">
+                <div class="login-card-header">
+                    <h2>Selamat Datang</h2>
+                    <p>Masukkan PIN untuk melanjutkan</p>
+                </div>
+
+                <div class="pin-display" id="pin-display">
+                    <div class="pin-dot" id="dot-1"></div>
+                    <div class="pin-dot" id="dot-2"></div>
+                    <div class="pin-dot" id="dot-3"></div>
+                    <div class="pin-dot" id="dot-4"></div>
+                    <div class="pin-dot" id="dot-5"></div>
+                    <div class="pin-dot" id="dot-6"></div>
+                </div>
+
+                <p id="login-error" class="error-message"></p>
+
+                <div class="numpad">
+                    <button class="numpad-btn" data-num="1">1</button>
+                    <button class="numpad-btn" data-num="2">2</button>
+                    <button class="numpad-btn" data-num="3">3</button>
+                    <button class="numpad-btn" data-num="4">4</button>
+                    <button class="numpad-btn" data-num="5">5</button>
+                    <button class="numpad-btn" data-num="6">6</button>
+                    <button class="numpad-btn" data-num="7">7</button>
+                    <button class="numpad-btn" data-num="8">8</button>
+                    <button class="numpad-btn" data-num="9">9</button>
+                    <button class="numpad-btn clear-btn" id="numpad-clear">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <button class="numpad-btn" data-num="0">0</button>
+                    <button class="numpad-btn del-btn" id="numpad-del">
+                        <i class="fas fa-delete-left"></i>
+                    </button>
+                </div>
+
+                <button id="login-button" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Masuk
+                </button>
+
+                <div class="login-footer-note">
+                    <i class="fas fa-shield-alt"></i> Sistem terlindungi dengan PIN
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== APP PAGE ===================== -->
+    <div id="app-page" class="page">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-store-alt"></i>
+                    <span>KASIR<em>KABUKI</em></span>
+                </div>
+                <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle Sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-store">
+                <div class="store-avatar">B</div>
+                <div class="store-details">
+                    <strong id="store-name-sidebar">KABUKIRO JAPANESE YATAI</strong>
+                    <span id="cashier-name-sidebar">Kasir: Bentar</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-label">MENU</div>
+                <ul>
+                    <li class="nav-item active" data-target="kasir-view">
+                        <i class="fas fa-cash-register"></i>
+                        <span>Kasir</span>
+                        <div class="nav-indicator"></div>
+                    </li>
+                    <li class="nav-item" data-target="history-view">
+                        <i class="fas fa-receipt"></i>
+                        <span>Riwayat</span>
+                        <div class="nav-indicator"></div>
+                    </li>
+                    <li class="nav-item" data-target="rekap-harian-view">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Rekap Harian</span>
+                        <div class="nav-indicator"></div>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" id="logout-button">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Keluar</span>
+                </button>
+                <div class="sidebar-time" id="sidebar-time">00:00:00</div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content" id="main-content">
+
+            <!-- TOP HEADER -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h1 class="page-title" id="page-title">Kasir</h1>
+                    <div class="header-search" id="header-search-wrap">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="product-search" placeholder="Cari produk...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="header-date" id="header-date"></div>
+                    <div class="header-user">
+                        <div class="user-avatar">B</div>
+                        <div>
+                            <div class="user-name" id="cashier-name">Bentar</div>
+                            <div class="user-role">Kasir</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ===== KASIR VIEW ===== -->
+            <div id="kasir-view" class="view active">
+                <div class="kasir-layout">
+
+                    <!-- Product Grid -->
+                    <div class="product-panel">
+                        <div class="panel-header">
+                            <span class="panel-title"><i class="fas fa-box-open"></i> Produk</span>
+                            <span class="product-count" id="product-count">0 item</span>
+                        </div>
+                        <div class="category-nav" id="category-tabs">
+                            <!-- Diisi JS -->
+                        </div>
+                        <div class="product-grid" id="product-grid">
+                            <!-- Diisi JS -->
+                        </div>
+                    </div>
+
+                    <!-- Cart Panel -->
+                    <div class="cart-panel">
+                        <div class="panel-header">
+                            <span class="panel-title"><i class="fas fa-shopping-bag"></i> Keranjang</span>
+                            <button class="btn-clear-cart" id="clear-cart-btn">
+                                <i class="fas fa-trash-alt"></i> Kosongkan
+                            </button>
+                        </div>
+
+                        <div class="cart-items-wrap" id="cart-items">
+                            <div class="cart-empty" id="cart-empty">
+                                <i class="fas fa-shopping-cart"></i>
+                                <p>Keranjang kosong</p>
+                                <span>Pilih produk untuk mulai transaksi</span>
+                            </div>
+                        </div>
+
+                        <div class="cart-footer">
+                            <div class="cart-summary-row">
+                                <span>Subtotal</span>
+                                <span id="cart-subtotal">Rp 0</span>
+                            </div>
+                            <div class="cart-total-row">
+                                <span>TOTAL</span>
+                                <span id="cart-total">Rp 0</span>
+                            </div>
+                            <button id="checkout-button" class="btn-checkout" disabled>
+                                <i class="fas fa-arrow-right"></i> Lanjut Pembayaran
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== PAYMENT VIEW ===== -->
+            <div id="payment-view" class="view">
+                <div class="payment-layout">
+                    <div class="payment-panel">
+                        <div class="panel-header">
+                            <button class="btn-back" id="back-to-kasir">
+                                <i class="fas fa-arrow-left"></i> Kembali
+                            </button>
+                            <span class="panel-title">Pembayaran</span>
+                        </div>
+
+                        <div class="payment-order-summary">
+                            <h3>Ringkasan Pesanan</h3>
+                            <div id="payment-order-items"></div>
+                            <div class="payment-total-block">
+                                <span>Total Pembayaran</span>
+                                <strong id="payment-total">Rp 0</strong>
+                            </div>
+                        </div>
+
+                        <h3 class="payment-method-label">Pilih Metode Pembayaran</h3>
+                        <div class="payment-methods-grid">
+                            <button class="payment-method-btn" id="qris-payment">
+                                <div class="payment-method-icon">
+                                    <i class="fas fa-qrcode"></i>
+                                </div>
+                                <span>QRIS</span>
+                                <small>Scan QR Code</small>
+                            </button>
+                            <button class="payment-method-btn" id="cash-payment">
+                                <div class="payment-method-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <span>Tunai</span>
+                                <small>Bayar Cash</small>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== HISTORY VIEW ===== -->
+            <div id="history-view" class="view">
+                <div class="history-layout">
+                    <div class="panel-header">
+                        <span class="panel-title"><i class="fas fa-receipt"></i> Riwayat Transaksi</span>
+                        <span class="transaction-badge" id="history-count">0 transaksi</span>
+                    </div>
+                    <div id="transaction-list">
+                        <div class="empty-state">
+                            <i class="fas fa-receipt"></i>
+                            <p>Belum ada transaksi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== REKAP HARIAN VIEW ===== -->
+            <div id="rekap-harian-view" class="view">
+                <div class="rekap-layout">
+                    <div class="rekap-cards">
+                        <div class="rekap-card purple">
+                            <div class="rekap-card-icon"><i class="fas fa-qrcode"></i></div>
+                            <div class="rekap-card-info">
+                                <span>Total QRIS</span>
+                                <strong id="rekap-qris-total">Rp 0</strong>
+                            </div>
+                        </div>
+                        <div class="rekap-card green">
+                            <div class="rekap-card-icon"><i class="fas fa-money-bill-wave"></i></div>
+                            <div class="rekap-card-info">
+                                <span>Total Tunai</span>
+                                <strong id="rekap-tunai-total">Rp 0</strong>
+                            </div>
+                        </div>
+                        <div class="rekap-card gold">
+                            <div class="rekap-card-icon"><i class="fas fa-coins"></i></div>
+                            <div class="rekap-card-info">
+                                <span>Total Semua</span>
+                                <strong id="rekap-all-total">Rp 0</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rekap-actions">
+                        <button id="show-detailed-rekap" class="btn-primary-action">
+                            <i class="fas fa-list-alt"></i> Lihat Detail Penjualan
+                        </button>
+                        <button id="tutup-toko" class="btn-danger-action">
+                            <i class="fas fa-store-slash"></i> Tutup Toko
+                        </button>
+                    </div>
+
+                    <div id="detailed-rekap-content">
+                        <div class="panel-header">
+                            <span class="panel-title"><i class="fas fa-boxes"></i> Detail Produk Terjual</span>
+                        </div>
+                        <ul id="rekap-product-qty"></ul>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ===================== MODALS ===================== -->
+
+    <!-- QRIS Modal -->
+    <div id="qris-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" data-modal="qris-modal"><i class="fas fa-times"></i></button>
+            <div class="modal-icon purple"><i class="fas fa-qrcode"></i></div>
+            <h3>Pembayaran QRIS</h3>
+            <p class="modal-subtitle">Scan QR Code di bawah untuk membayar</p>
+            <div class="qris-placeholder">
+                <div class="qris-box">
+                    <i class="fas fa-qrcode"></i>
+                    <p>QR Code</p>
+                </div>
+            </div>
+            <div class="modal-total-display">
+                <span>Total</span>
+                <strong id="qris-amount-display">Rp 0</strong>
+            </div>
+            <button id="print-qris-struk" class="btn-modal-confirm">
+                <i class="fas fa-print"></i> Konfirmasi & Cetak Struk
+            </button>
+        </div>
+    </div>
+
+    <!-- Cash Modal -->
+    <div id="cash-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" data-modal="cash-modal"><i class="fas fa-times"></i></button>
+            <div class="modal-icon green"><i class="fas fa-money-bill-wave"></i></div>
+            <h3>Pembayaran Tunai</h3>
+            <div class="modal-total-display">
+                <span>Total Belanja</span>
+                <strong id="cash-total-display">Rp 0</strong>
+            </div>
+            <div class="cash-input-group">
+                <label>Uang Diterima</label>
+                <div class="cash-input-wrap">
+                    <span class="currency-prefix">Rp</span>
+                    <input type="number" id="cash-received" placeholder="0">
+                </div>
+            </div>
+            <div class="cash-change-display">
+                <span>Kembalian</span>
+                <strong id="cash-change" class="change-amount">Rp 0</strong>
+            </div>
+            <div class="quick-cash" id="quick-cash-buttons">
+                <!-- Diisi JS -->
+            </div>
+            <button id="print-cash-struk" class="btn-modal-confirm" disabled>
+                <i class="fas fa-print"></i> Cetak Struk
+            </button>
+        </div>
+    </div>
+
+    <!-- Transaction Detail Modal -->
+    <div id="transaction-detail-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" data-modal="transaction-detail-modal"><i class="fas fa-times"></i></button>
+            <h3>Detail Transaksi</h3>
+            <div id="transaction-detail-content"></div>
+        </div>
+    </div>
+
+    <!-- Struk Success Notification -->
+    <div id="struk-notification" class="modal">
+        <div class="modal-content success-modal">
+            <div class="success-icon-wrap">
+                <div class="success-ring"></div>
+                <i class="fas fa-check success-check"></i>
+            </div>
+            <h3>Transaksi Berhasil!</h3>
+            <p class="success-subtitle">Struk berhasil dicetak</p>
+            <div id="printed-struk-details" class="struk-preview"></div>
+            <button id="back-to-kasir-after-print" class="btn-modal-confirm">
+                <i class="fas fa-arrow-left"></i> Transaksi Baru
+            </button>
+        </div>
+    </div>
+
+    <!-- Print Area -->
+    <div id="print-area" style="display:none;"></div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
